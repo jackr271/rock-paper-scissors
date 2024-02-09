@@ -34,3 +34,28 @@ function playRound(playerSelection, computerSelection) {
             return `Loss! ${computerSelection} beats ${playerSelection}`;
     }
 }
+
+// prompts the player 5 times to play a 5-round game of rock-paper-scissors
+function playGame() {
+    let score = 0;
+    for (i = 0; i < 5; i++) {
+        let playerSelection;
+        do {
+            playerSelection = prompt('Rock, paper, or scissors?').toLowerCase();
+        } while (!(playerSelection === 'rock' || playerSelection === 'paper' || playerSelection === 'scissors')) // loops until user inputs correct choice
+
+        let result = playRound(playerSelection, getComputerChoice()); // gets round result
+        console.log(result); // displays result to user
+
+        if (result.charAt(0) === 'W') // adds to user's score for a win, subtracts from a loss
+            score++;
+        else if (result.charAt(0) === 'L') 
+            score--;
+    }
+
+    console.log((score === 0) ? // a bit of practice with nesting ternary operators 
+        "You tied the match!"
+        : (score >= 0) ?
+            "You won the match!"
+            : "You lost the match!");
+}
