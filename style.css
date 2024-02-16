@@ -43,6 +43,7 @@ button {
 img {
     flex: 1;
     max-width: 190px;
+    z-index: 1;
 }
 
 .scorecard {

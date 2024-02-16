@@ -12,13 +12,19 @@
     <div class="vert">
         <div class="text large">Select rock, paper, or scissors to play</div>
         <div class="buttons">
-            <button id="rock" width='200px' height='200px'><img src="./img/rock.png" alt='rock'></button>
-            <button id="paper" width='200px' height='200px'><img src="./img/paper.png" alt='paper'></button>
-            <button id="scissors" width='200px' height='200px'><img src="./img/scissors.png" alt='scissors'></button>
+            <button width='200px' height='200px'>
+                <img src="./img/rock.png" alt='rock' name="rock">
+            </button>
+            <button width='200px' height='200px'>
+                <img src="./img/paper.png" alt='paper' name="paper">
+            </button>
+            <button width='200px' height='200px'>
+                <img src="./img/scissors.png" alt='scissors' name="scissors">
+            </button>
         </div>
         <div class="scorecard">
-            <div class='text' id="you">You: 0</div>
-            <div class='text' id="computer">Computer: 0</div>
+            <div class='text'>You: <text id="playerScore">0</text></div>
+            <div class='text'>Computer: <text id="computerScore">0</text></div>
         </div>
     </div>
 </body>

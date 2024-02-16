@@ -1,3 +1,25 @@
+let playerScore = 0;
+let computerScore = 0;
+
+const playerScoreDisplay = document.querySelector('#playerScore');
+const computerScoreDisplay = document.querySelector('#computerScore');
+
+let buttons = document.querySelector('.buttons');
+
+function resetGame () {
+    if (playerScore > computerScore) {
+        window.alert(`You won ${playerScore} to ${computerScore}! \nClick to play again.`);
+    }
+    else {
+        window.alert(`You lost ${computerScore} to ${playerScore}! \nClick to play again.`);
+    }
+    playerScore = 0;
+    computerScore = 0;
+
+    playerScoreDisplay.textContent = playerScore;
+    computerScoreDisplay.textContent = computerScore;
+}
+
 // no input, returns 'rock' 'paper' or 'scissors' by random chance
 function getComputerChoice() {
     const num = Math.floor(Math.random() * 3) // selects a random integer between 0 and 2
@@ -13,49 +35,60 @@ function getComputerChoice() {
 // inputs player's and computer's choices, returns win, lose, or tie result as string
 function playRound(playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
-        return 'Tie!';
+        tiesRound();
     }
     else if (playerSelection === 'rock') {
         if (computerSelection === 'scissors')
-            return `Win! ${playerSelection} beats ${computerSelection}`;
+            playerWinsRound(playerSelection, computerSelection);
         else
-            return `Loss! ${computerSelection} beats ${playerSelection}`;
+            computerWinsRound(playerSelection, computerSelection);
     }
     else if (playerSelection === 'paper') {
         if (computerSelection === 'rock')
-            return `Win! ${playerSelection} beats ${computerSelection}`;
+            playerWinsRound(playerSelection, computerSelection);
         else
-            return `Loss! ${computerSelection} beats ${playerSelection}`;
+            computerWinsRound(playerSelection, computerSelection);
     }
     else {
         if (computerSelection === 'paper')
-            return `Win! ${playerSelection} beats ${computerSelection}`;
+            playerWinsRound(playerSelection, computerSelection);
         else
-            return `Loss! ${computerSelection} beats ${playerSelection}`;
+            computerWinsRound(playerSelection, computerSelection);
+    }
+
+    if ((playerScore === 5) || (computerScore === 5)) {
+        resetGame();
     }
 }
 
-// prompts the player 5 times to play a 5-round game of rock-paper-scissors
-function playGame() {
-    let score = 0;
-    for (i = 0; i < 5; i++) {
-        let playerSelection;
-        do {
-            playerSelection = prompt('Rock, paper, or scissors?').toLowerCase();
-        } while (!(playerSelection === 'rock' || playerSelection === 'paper' || playerSelection === 'scissors')) // loops until user inputs correct choice
-
-        let result = playRound(playerSelection, getComputerChoice()); // gets round result
-        console.log(result); // displays result to user
-
-        if (result.charAt(0) === 'W') // adds to user's score for a win, subtracts from a loss
-            score++;
-        else if (result.charAt(0) === 'L') 
-            score--;
-    }
-
-    console.log((score === 0) ? // a bit of practice with nesting ternary operators 
-        "You tied the match!"
-        : (score >= 0) ?
-            "You won the match!"
-            : "You lost the match!");
+function playerWinsRound (playerSelection, computerSelection) {
+    window.alert(`Win! ${playerSelection} beats ${computerSelection}`);
+    playerScore += 1;
+    playerScoreDisplay.textContent = playerScore;
 }
+
+function computerWinsRound (playerSelection, computerSelection) {
+    window.alert(`Loss! ${computerSelection} beats ${playerSelection}`);
+    computerScore += 1;
+    computerScoreDisplay.textContent = computerScore;
+}
+
+function tiesRound () {
+    window.alert('Tie!');
+}
+
+buttons.addEventListener('click', (event) => {
+    const target = event.target.getAttribute('name');
+
+    switch (target) {
+        case 'rock': console.log('Clicked!');
+            playRound(playerSelection='rock', getComputerChoice());
+            break;
+
+        case 'paper': playRound(playerSelection='paper', getComputerChoice());
+            break;
+
+        case 'scissors': playRound(playerSelection='scissors', getComputerChoice());
+            break;
+    }
+});
